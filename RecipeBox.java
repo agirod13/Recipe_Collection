@@ -1,39 +1,52 @@
 import java.util.ArrayList; //	Imports ArrayList functionality
 import java.util.Scanner;	// Imports Scanner functionality
 
+/**
+ * Program creates recipes and stores them inside recipebox.
+ * 
+ * @author Anthony Girod
+ * @version 1.0
+ */
+
 public class RecipeBox {
    
-    private ArrayList<Recipe> listOfRecipes = new ArrayList<>();
+    private ArrayList<Recipe> listOfRecipes = new ArrayList<>();		//	Instantiates new Recipe object ArrayList
 
-	// - - - - - Accessor Method
+	
+	/** 
+	 * @return ArrayList<Recipe>
+	 */
+	// Accessor Method
 	public ArrayList<Recipe> getListOfRecipes() {
 		
 		return listOfRecipes;
 
 	}
-
-	// - - - - - Mutator Method
+	
+	// Mutator Method
 	public void setListOfRecipes(ArrayList<Recipe> listOfRecipes) {
 		
 		this.listOfRecipes = listOfRecipes;
 
 	}
 
-	// - - - - - Constructor Method
+	// Constructor Method
 	public RecipeBox() {
 		
 		setListOfRecipes(listOfRecipes);
 
 	}
 
-	// - - - - - Overloaded Constructor Method
+	// Overloaded Constructor Method
 	public RecipeBox(ArrayList<Recipe> listOfRecipes) {
 		
 		setListOfRecipes(listOfRecipes);
 	
 	}
 
-	public void addNewRecipe() {	//	Method that utilizes Recipe print method to create a new recipe
+
+	//	Method that utilizes Recipe print method to create a new recipe
+	public void addNewRecipe() {	
             
 		Recipe tempRecipe = new Recipe();		
 		tempRecipe.createNewRecipe();
@@ -41,23 +54,22 @@ public class RecipeBox {
 							
 	}
 
-	public void printAllRecipeDetails(String selectedRecipeName) {		// Method prints all recipe details after checking to be sure that recipe exists
-			
+	// Method prints all recipe details
+	public void printAllRecipeDetails(String selectedRecipeName) {		
+		
 		for (int i = 0; i < listOfRecipes.size(); i++) {	
 		
 			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
 				
 				listOfRecipes.get(i).printRecipe();
-			
-			} else {
-
-				System.out.println("Recipe not available");
-
-			}
-		}
+				break;
+							
+			}			
+		}			
 	}
 	
-	public void printAllRecipeNames() {		//	Method prints recipe names; utilizes toString override in Recipe
+	// Method prints recipe names; utilizes toString override in Recipe
+	public void printAllRecipeNames() {		
             
 		for (int j = 0; j < listOfRecipes.size(); j++) { 
 			
@@ -66,46 +78,42 @@ public class RecipeBox {
 		}		
 	}
 
-	public void deleteRecipe(String selectedRecipeName) {		// Method deletes recipe
+	// Method deletes recipe	
+	public void deleteRecipe(String selectedRecipeName) {		
 
-		
 		for (int i = 0; i < listOfRecipes.size(); i++) {
 
 			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
 
-				listOfRecipes.remove(i);
-			
-			} else {
-
-				System.out.println("That's not a valid recipe name");
-
-			}
-		}
-	
-	}
-
-	public void convertToMetric(String selectedRecipeName) {		// Method deletes recipe
-
-		
-		for (int i = 0; i < listOfRecipes.size(); i++) {
-
-			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
-
+				listOfRecipes.remove(i);						
 				
-			
-			} else {
-
-				System.out.println("That's not a valid recipe name");
-
 			}
-		}
-	
+		}	
+	}
+
+	// Method converts recipe to Metric
+	public void convertToMetric(String selectedRecipeName) {		
+		
+		for (int i = 0; i < listOfRecipes.size(); i++) {	
+		
+			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
+				
+				listOfRecipes.get(i).printMetricRecipe();
+				break;
+			
+			}
+		}	
 	}
 	
-	
-	public static void main(String[] args) { // Creates a Recipe Box
+	// Main method
+
+	/**
+	 * Asks for users to choose one of 5 options and calls corresponding method to enable action
+	 * @param args command-line arguments
+	 */
+	public static void main(String[] args) { 
     	    		
-		RecipeBox myRecipeBox = new RecipeBox();
+		RecipeBox myRecipeBox = new RecipeBox();	// Creates new RecipeBox object
         Scanner menuScnr = new Scanner(System.in);	
 		
 		System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
@@ -135,23 +143,21 @@ public class RecipeBox {
                 String selectedRecipeName = menuScnr.next();
 				myRecipeBox.deleteRecipe(selectedRecipeName);
 
-			/* } else if (input == 5) {	
+			} else if (input == 5) {	
             
 				System.out.println("Which recipe do you want to convert?\n");
 				myRecipeBox.printAllRecipeNames();
                 String selectedRecipeName = menuScnr.next();
-				myRecipeBox.deleteRecipe(selectedRecipeName);
-				myRecipeBox.convertToMetric();*/
+				myRecipeBox.convertToMetric(selectedRecipeName);
 			
 			} else {
                 
 				System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
-            }			
+            
+			}			
 			
 			System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
-		}
 		
-        
+		}        
 	}
-
 }
