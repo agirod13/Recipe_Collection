@@ -65,6 +65,42 @@ public class RecipeBox {
 		
 		}		
 	}
+
+	public void deleteRecipe(String selectedRecipeName) {		// Method deletes recipe
+
+		
+		for (int i = 0; i < listOfRecipes.size(); i++) {
+
+			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
+
+				listOfRecipes.remove(i);
+			
+			} else {
+
+				System.out.println("That's not a valid recipe name");
+
+			}
+		}
+	
+	}
+
+	public void convertToMetric(String selectedRecipeName) {		// Method deletes recipe
+
+		
+		for (int i = 0; i < listOfRecipes.size(); i++) {
+
+			if (listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)) {
+
+				
+			
+			} else {
+
+				System.out.println("That's not a valid recipe name");
+
+			}
+		}
+	
+	}
 	
 	
 	public static void main(String[] args) { // Creates a Recipe Box
@@ -72,7 +108,7 @@ public class RecipeBox {
 		RecipeBox myRecipeBox = new RecipeBox();
         Scanner menuScnr = new Scanner(System.in);	
 		
-		System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "\nPlease select a menu item:");
+		System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
         while (menuScnr.hasNextInt() || menuScnr.hasNextLine()) {	//	Continues loop while input remains an integer
             
             int input = menuScnr.nextInt();
@@ -91,13 +127,28 @@ public class RecipeBox {
 			} else if (input == 3) {		
 				
 				myRecipeBox.printAllRecipeNames();
+
+			} else if (input == 4) {
+				
+				System.out.println("Which recipe do you want to delete?\n");
+				myRecipeBox.printAllRecipeNames();
+                String selectedRecipeName = menuScnr.next();
+				myRecipeBox.deleteRecipe(selectedRecipeName);
+
+			/* } else if (input == 5) {	
             
+				System.out.println("Which recipe do you want to convert?\n");
+				myRecipeBox.printAllRecipeNames();
+                String selectedRecipeName = menuScnr.next();
+				myRecipeBox.deleteRecipe(selectedRecipeName);
+				myRecipeBox.convertToMetric();*/
+			
 			} else {
                 
-				System.out.println("\nMenu\n" + "1. Add Recipe\n" + "2. Print Recipe\n" + "3. Adjust Recipe Servings\n" + "\nPlease select a menu item:");
+				System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
             }			
 			
-			System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "\nPlease select a menu item:");
+			System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Delete Recipe\n" + "5. Convert to Metric\n" + "\nPlease select a menu item:");
 		}
 		
         

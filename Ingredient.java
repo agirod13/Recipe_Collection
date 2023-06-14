@@ -1,68 +1,136 @@
-import java.util.Scanner;
+import java.util.Scanner;       // Imports Scanner functionality
+import java.util.ArrayList;     // Imports ArrayList functionality
 
 
-public class Ingredients {
-    public static void main(String[] args) {
-        String nameOfIngredient =  "";
-        double ingredientAmount = 0.0;
-        double numberCalories = 0.0;
-        double totalCalories = 0.0;
-        String unitMeasurement = "";
-        final int MAX_CUPS = 100; //Final creates a variable (MAX_CUPS) that cannot be changed.
+public class Ingredient {
 
+    private String nameOfIngredient;
+    private int ingredientAmount;
+    private int numberCalories;
+    private double totalCalories;
+    private String unitMeasurement;
+    final int MAX_CUPS = 100; //Final creates a variable (MAX_CUPS) that cannot be changed.
 
+            // - - - - -Acessors - - - - -
+    public void setNameOfIngredient (String nameOfIngredient) {
+        this.nameOfIngredient = nameOfIngredient;        
+    }
+
+    public void setIngredientAmount (int ingredientAmount) {
+        this.ingredientAmount = ingredientAmount;
+    }
+    
+    public void setNumberCalories (int numberCalories) {
+        this.numberCalories = numberCalories;
+    }
+
+    public void setTotalCalories (double totalCalories) {
+        this.totalCalories = totalCalories;
+    }
+
+    public void setUnitMeasurement (String unitMeasurement) {
+        this.unitMeasurement = unitMeasurement;
+    }
+
+        // - - - - - Mutators - - - - -
+    public String getNameOfIngredient() {
+        return nameOfIngredient;
+    }
+
+    public int getIngredientAmount() {
+        return ingredientAmount;
+    }
+
+    public int getNumberCalories() {
+        return numberCalories;
+    }
+
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public String getUnitMeasurement() {
+        return unitMeasurement;
+    }
+
+            // - - - - - Constructor Method - - - - -
+    public Ingredient() {
+        this.nameOfIngredient = "";
+        this.ingredientAmount = 0;
+        this.numberCalories = 0;
+        this.totalCalories = 0.0;
+        this.unitMeasurement = "";
+    }
+
+            // - - - - - Overloaded constructor method - - - - -
+    public Ingredient(String nameOfIngredient, int ingredientAmount, int numberCalories, double totalCalories, String unitMeasurement) {
+        this.nameOfIngredient = nameOfIngredient;
+        this.ingredientAmount = ingredientAmount;
+        this.numberCalories = numberCalories;
+        this.totalCalories = totalCalories;
+        this.unitMeasurement = unitMeasurement;
+    }
+    
+    public Ingredient createNewIngredient() {    //public static void main(String[] args)
+        
+        double totalCalories = 0;        
+        
+
+        
                          // *** nameOfIngredient Validation ***
         //-----------------------------------------------------------------------------------//
+        Scanner ingredientNameScanner = new Scanner(System.in);  // Creates new scanner object
         System.out.println("Please enter the name of the ingredient: ");     // Collects user input for String variable nameOfIngredient
-        Scanner ingredientNameScanner = new Scanner(System.in);  // Creates new scanner object               
+                      
         
         if (ingredientNameScanner.hasNext("[A-Za-z]*")) { // Checks if input is a String
-            nameOfIngredient = ingredientNameScanner.next();
+            setNameOfIngredient(ingredientNameScanner.nextLine());
         } else {
             System.out.println("Please input valid ingredient name: ");
-            nameOfIngredient = ingredientNameScanner.next();
+            setNameOfIngredient(ingredientNameScanner.nextLine());
             
             if (ingredientNameScanner.hasNext("[A-Za-z]*")) {
-                nameOfIngredient = ingredientNameScanner.next();
+                setNameOfIngredient(ingredientNameScanner.nextLine());
             } else {
                 System.out.println("Sorry, your input is still not valid; you are out of attempts");
-                return;
             }
         }
 
                         // *** unitMeasurement Validation ***
         //-----------------------------------------------------------------------------------//                
+        Scanner unitMeasurementScanner = new Scanner(System.in);
         System.out.println("Please enter unit of measurement for ingredient (e.g. cups, oz., etc.): ");     // Collects user input for String variable unitMeasurement
-        Scanner unitMeasurementScanner = new Scanner(System.in);                 
+                         
         
         if (unitMeasurementScanner.hasNext("[A-Za-z]*")) {      // Checks if input is a String
-            unitMeasurement = unitMeasurementScanner.next();
+            setUnitMeasurement(unitMeasurementScanner.nextLine());
         } else {
             System.out.println("Please input valid unit of measurement: ");
-            unitMeasurement = unitMeasurementScanner.next();
+            setUnitMeasurement(unitMeasurementScanner.nextLine());
 
             if (unitMeasurementScanner.hasNext("[A-Za-z]*")) {
-                unitMeasurement = unitMeasurementScanner.next();
+                setUnitMeasurement(unitMeasurementScanner.nextLine());
             } else {
                 System.out.println("Sorry, your input is still not valid; you are out of attempts");
-                return;
+                
             }
         }               
             
                         // *** ingredientAmount Validation ***
         //-----------------------------------------------------------------------------------//
-        System.out.println("Please enter the number of " + unitMeasurement + " of " + nameOfIngredient + " we'll need (between 1 and 100): "); // Collects user input for double variable ingredientAmount
         Scanner ingredientAmountScanner = new Scanner(System.in);
+        System.out.println("Please enter the number of " + unitMeasurement + " of " + nameOfIngredient + " we'll need (between 1 and 100): "); // Collects user input for double variable ingredientAmount
+        
        
-        if (ingredientAmountScanner.hasNextDouble()) {     // Checks if ingredientAmountScanner is a double
-           ingredientAmount = ingredientAmountScanner.nextDouble();
+        if (ingredientAmountScanner.hasNextInt()) {     // Checks if ingredientAmountScanner is an int
+           setIngredientAmount(ingredientAmountScanner.nextInt());
            
             if (ingredientAmount <= MAX_CUPS && ingredientAmount >= 1) {    
                 System.out.println(ingredientAmount + " is a valid number of " + unitMeasurement + "!");
             } else {                
                 System.out.println(ingredientAmount + " is not a valid number of " + unitMeasurement + "!");
                 System.out.println("Please enter another number of " + unitMeasurement + " between 1 and 100: "); // Prompts user a second time for a valid input if first input is invalid
-                ingredientAmount = ingredientAmountScanner.nextDouble();
+                setIngredientAmount(ingredientAmountScanner.nextInt());
 
                 if (ingredientAmount <= MAX_CUPS && ingredientAmount >= 1) {              
                     System.out.println(ingredientAmount + " is a valid number of " + unitMeasurement + "!");
@@ -70,7 +138,7 @@ public class Ingredients {
                     System.out.println(ingredientAmount + " is less than 1. Sorry you are out of attempts.");
                 } else {
                     System.out.println(ingredientAmount + " is greater than 100. Sorry you are out of attempts.");
-                    return;
+                    
                 }           
             }       
         } else {
@@ -81,7 +149,7 @@ public class Ingredients {
             } else {                
                 System.out.println(ingredientAmount + " is not a valid number of " + unitMeasurement + "!");
                 System.out.println("Please enter another number of " + unitMeasurement + " between 1 and 100: "); 
-                ingredientAmount = ingredientAmountScanner.nextDouble();
+                setIngredientAmount(ingredientAmountScanner.nextInt());
 
                 if (ingredientAmount <= MAX_CUPS && ingredientAmount >= 1) {               
                     System.out.println(ingredientAmount + " is a valid number of " + unitMeasurement + "!");
@@ -89,31 +157,36 @@ public class Ingredients {
                     System.out.println(ingredientAmount + " is less than 1. Sorry you are out of attempts.");
                 } else {
                     System.out.println(ingredientAmount + " is greater than 100. Sorry you are out of attempts.");
-                    return;
+                    
                 }           
             }
         }
        
                         // *** numberCalories Validation ***
         //-----------------------------------------------------------------------------------//
-        System.out.println("Please enter the number of calories per " + unitMeasurement + ": "); 
-        Scanner numberCaloriesScanner = new Scanner(System.in);        // Collects user input for double variable numberCalories
+         Scanner numberCaloriesScanner = new Scanner(System.in);        // Collects user input for double variable numberCalories
+         System.out.println("Please enter the number of calories per " + unitMeasurement + ": "); 
+       
 
-        if (numberCaloriesScanner.hasNextDouble()) {        // Checks if input is a double
-            numberCalories = numberCaloriesScanner.nextDouble();
+        if (numberCaloriesScanner.hasNextInt()) {        // Checks if input is a double
+            setNumberCalories(numberCaloriesScanner.nextInt());
         } else {
             System.out.println("Please input valid calorie amount: ");
-            numberCalories = numberCaloriesScanner.nextDouble();
+            setNumberCalories(numberCaloriesScanner.nextInt());
 
-            if (numberCaloriesScanner.hasNextDouble()) {
-                numberCalories = numberCaloriesScanner.nextDouble();
+            if (numberCaloriesScanner.hasNextInt()) {
+                setNumberCalories(numberCaloriesScanner.nextInt());
             } else {
                 System.out.println("Sorry, your input is still not valid; you are out of attempts");
-                return;
+                
             }
         }       
       
         totalCalories = ingredientAmount * numberCalories;      // Expression that calculates totalCalories by multiplying ingredientAMount by numberCaloresPerCup
         System.out.println(nameOfIngredient + " uses " + ingredientAmount + " " +  unitMeasurement + " and has " + totalCalories + " calories.");
+    
+        Ingredient newIngredient = new Ingredient(nameOfIngredient, ingredientAmount, numberCalories, totalCalories, unitMeasurement);
+        
+        return newIngredient;
     }
 }

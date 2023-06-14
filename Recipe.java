@@ -5,7 +5,7 @@ public class Recipe {
     
     private String recipeName;
     private int servings;
-    private int totalRecipeCalories;
+    private double totalRecipeCalories;
     ArrayList<String> recipeIngredients; // Instantiates new ArrayList
 
             //- - - - - Accessors - - - - -
@@ -21,7 +21,7 @@ public class Recipe {
         this.recipeIngredients = recipeIngredients;
     }
 
-    public void setTotalRecipeCalories( int totalRecipeCalories) {
+    public void setTotalRecipeCalories( double totalRecipeCalories) {
         this.totalRecipeCalories = totalRecipeCalories;
     }
     
@@ -38,7 +38,7 @@ public class Recipe {
         return recipeIngredients;
     }
 
-    public int getTotalRecipeCalories() {
+    public double getTotalRecipeCalories() {
         return totalRecipeCalories;
     }
 
@@ -46,12 +46,12 @@ public class Recipe {
     public Recipe() {
         this.recipeName = "";
         this.servings = 0; 
-        this.recipeIngredients = new ArrayList<>();
-        this.totalRecipeCalories = 0;        
+        this.recipeIngredients = new ArrayList<String>();
+        this.totalRecipeCalories = 0.0;        
     }
             
             // - - - - - Overloaded constructor method - - - - -
-    public Recipe(String recipeName, int servings, ArrayList<String> recipeIngredients, int totalRecipeCalories) {
+    public Recipe(String recipeName, int servings, ArrayList<String> recipeIngredients, double totalRecipeCalories) {
         this.recipeName = recipeName;
         this.servings = servings;
         this.recipeIngredients = recipeIngredients;
@@ -70,7 +70,7 @@ public class Recipe {
 
         // Method that prints various elements of a recipe
     public void printRecipe() {     
-        int singleServingCalories = totalRecipeCalories / servings;
+        double singleServingCalories = totalRecipeCalories / servings;
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("Recipe: " + recipeName);
@@ -85,10 +85,12 @@ public class Recipe {
     }
     
             // Method that creates new Recipe from user iput
-    public void createNewRecipe() {  
-        int totalRecipeCalories = 0;
+    public Recipe createNewRecipe() {  
         
-        ArrayList<String> recipeIngredients = new ArrayList<String>();
+        double totalRecipeCalories = 0;
+        
+        ArrayList<String> recipeIngredients = new ArrayList<>();
+        Ingredient newIngredient = new Ingredient();
         boolean addMoreIngredients = true;
         
         Scanner scnr = new Scanner(System.in);
@@ -97,9 +99,36 @@ public class Recipe {
         setRecipeName(scnr.nextLine());
         
         System.out.println("Please enter the number of servings: ");
-        setServings(scnr.nextInt()); 
+        setServings(scnr.nextInt());
+
+        do {
+
+            System.out.println("Would you like to add ingredients? Please type Yes or No");
+            String response = scnr.next();
+
+            if (response.toLowerCase().equals("yes")) {
+                
+                newIngredient.createNewIngredient();
+                recipeIngredients.add(new String (newIngredient.getNameOfIngredient()));
+                setRecipeIngredients(recipeIngredients);
+                
+                double ingredientAmount = newIngredient.getIngredientAmount();
+                double ingredientCalories = newIngredient.getNumberCalories();
+                
+                totalRecipeCalories += ingredientAmount * ingredientCalories;
+                setTotalRecipeCalories(totalRecipeCalories);   
+
+            } else {
+                addMoreIngredients = false;
+            }
+
+            
+        
+        
+        
                        
-        do { // Continues loop until addMoreIngredients becomes false
+        /*do { // Continues loop until addMoreIngredients becomes false
+            
             System.out.println("Please enter the ingredient name or type end if you are finished entering ingredients: ");
             String ingredientName = scnr.next();
             
@@ -110,21 +139,21 @@ public class Recipe {
                 setRecipeIngredients(recipeIngredients);
 
                 System.out.println("Please enter the ingredient amount: ");
-                float ingredientAmount = scnr.nextFloat();
+                double ingredientAmount = scnr.nextDouble();
             
                 System.out.println("Please enter the ingredient Calories: ");
                 int ingredientCalories = scnr.nextInt();
                 
                 totalRecipeCalories += ingredientAmount * ingredientCalories;     
-                setTotalRecipeCalories(totalRecipeCalories);                      
-            }                
+                setTotalRecipeCalories(totalRecipeCalories);                     
+            }*/               
            
        } while (addMoreIngredients == true);       
 
         Recipe recipe1 = new Recipe(recipeName, servings, recipeIngredients, totalRecipeCalories);
         recipe1.printRecipe();
         
-    
+       return recipe1;
     }    
 }
 
